@@ -4,8 +4,22 @@
 </head>
 <body>
   <h1>Зачем ты сюда нажал</h1>
-  <img src="lol.jpg">
+  
   <button onclick="alert('Поздравляю. Ты нажал кнопку.')">
     Не нажимай
   </button>
+
+  <p id="count">Любопытных посетителей: 1</p>
+
+  <button onclick="plus()">Я тоже любопытный</button>
+
+  <script>
+  let n = 1;
+
+  function plus() {
+      n++;
+      document.getElementById("count").textContent =
+          "Любопытных посетителей: " + n;
+  }
+  </script>
 </body>
