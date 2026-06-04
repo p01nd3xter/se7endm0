@@ -3,15 +3,15 @@
   <title>SE7ENDM0</title>
 </head>
 <body>
-  <h1>Зачем ты сюда нажал</h1>
+  <h3>Зачем ты сюда зашел?))</h3>
   
   <button onclick="alert('Поздравляю. Ты нажал кнопку.')">
     Не нажимай
   </button>
 
-  <p id="count">Любопытных посетителей: 1</p>
+  <p id="count">Просто кликер: 1</p>
 
-  <button onclick="plus()">Я тоже любопытный</button>
+  <button onclick="plus()">КЛИК!</button>
 
   <script>
   let n = 1;
@@ -19,7 +19,25 @@
   function plus() {
       n++;
       document.getElementById("count").textContent =
-          "Любопытных посетителей: " + n;
+          "Просто кликер: " + n;
   }
   </script>
+
+  <p id="text"></p>
+
+  <script>
+  const phrases = [
+      "Тут ничего нет.",
+      "Ты всё ещё здесь?",
+      "Я предупреждал.",
+      "Серьёзно?",
+      "Ну ладно."
+  ];
+
+  document.getElementById("text").textContent =
+      phrases[Math.floor(Math.random() * phrases.length)];
+  </script>
+
+  <h3>inst: se7endm0</h3>
+  <h3>tiktok: pp01nd3x</h3>
 </body>
