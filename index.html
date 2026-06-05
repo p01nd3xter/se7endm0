@@ -30,40 +30,44 @@
         КЛИК
     </button>
 
+    <button onclick="tip()">
+        Совет
+    </button>
+
     <p id="phrase"></p>
 
     <p id="clock"></p>
+
+    <p id="trace"></p>
+
+    <p id="tip"></p>
 
     <div class="info-box">
 
         <h3>Сигнал</h3>
 
         <p>
-            Этот сайт существует скорее как эксперимент,
-            чем как что-то полезное.
+            Этот сайт существует как эксперимент.
         </p>
+
+        <h3>Диагностика</h3>
+        <p id="diagnostic"></p>
 
         <hr>
 
         <p>
             inst:
-            <a href="https://instagram.com/se7endm0" target="_blank">
-                se7endm0
-            </a>
+            <a href="https://instagram.com/se7endm0" target="_blank">se7endm0</a>
         </p>
 
         <p>
             tiktok:
-            <a href="https://tiktok.com/@pp01nd3x" target="_blank">
-                pp01nd3x
-            </a>
+            <a href="https://tiktok.com/@pp01nd3x" target="_blank">pp01nd3x</a>
         </p>
 
         <p>
-            telegram:
-            <a href="https://t.me/juuzmusic_bot" target="_blank">
-                @juuzmusic_bot
-            </a>
+            telegram bot:
+            <a href="https://t.me/juuzmusic_bot" target="_blank">@juuzmusic_bot</a>
         </p>
 
         <p>
@@ -91,6 +95,18 @@ function plus() {
         "Просто кликер: " + n;
 }
 
+function tip() {
+    const tips = [
+        "Делай бэкапы.",
+        "Читай ошибки полностью.",
+        "Не храни пароли в коде.",
+        "Git commit чаще."
+    ];
+
+    document.getElementById("tip").textContent =
+        tips[Math.floor(Math.random() * tips.length)];
+}
+
 const phrases = [
     "...",
     "сигнал потерян",
@@ -105,6 +121,41 @@ const phrases = [
 
 document.getElementById("phrase").textContent =
     phrases[Math.floor(Math.random() * phrases.length)];
+
+const diag = [
+    "Пользователь выглядит подозрительно.",
+    "Обнаружен высокий уровень любопытства.",
+    "Посетитель не знает зачем он здесь.",
+    "Зафиксирована попытка найти смысл.",
+    "Обнаружен человек."
+];
+
+document.getElementById("diagnostic").textContent =
+    diag[Math.floor(Math.random() * diag.length)];
+
+const fakeLocations = [
+    "Определение местоположения...",
+    "Сигнал слабый...",
+    "Обнаружен узел сети...",
+    "Попытка восстановления данных...",
+    "Доступ к координатам ограничен...",
+    "Слишком много шума..."
+];
+
+let t = 0;
+
+const traceInterval = setInterval(() => {
+    document.getElementById("trace").textContent =
+        fakeLocations[t % fakeLocations.length];
+
+    t++;
+
+    if (t > 12) {
+        clearInterval(traceInterval);
+        document.getElementById("trace").textContent =
+            "Местоположение: Обнаружено. Вся информация передана владельцу. ";
+    }
+}, 900);
 
 setInterval(() => {
     document.getElementById("clock").textContent =
