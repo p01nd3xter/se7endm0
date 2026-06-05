@@ -5,8 +5,8 @@
 }
 
 body {
-    background: radial-gradient(circle at center, #070707, #030303);
-    color: #cfcfcf;
+    background: radial-gradient(circle at center, #050505, #000000);
+    color: #d0d0d0;
     font-family: Arial, sans-serif;
     min-height: 100vh;
     display: flex;
@@ -14,37 +14,79 @@ body {
     align-items: center;
     padding: 20px;
     overflow-x: hidden;
+    animation: bgPulse 8s infinite ease-in-out;
+}
+
+@keyframes bgPulse {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(0.85); }
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.02),
+        rgba(255,255,255,0.02) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.85));
+    pointer-events: none;
 }
 
 .container {
     width: 100%;
     max-width: 520px;
-    background: rgba(18, 18, 18, 0.55);
+    background: rgba(20, 20, 20, 0.55);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 18px;
+    border-radius: 16px;
     padding: 35px;
     text-align: center;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     box-shadow:
-        0 0 30px rgba(0, 0, 0, 0.7),
-        inset 0 0 50px rgba(255, 255, 255, 0.02);
-    animation: subtleShift 12s infinite ease-in-out;
+        0 0 40px rgba(0,0,0,0.9),
+        inset 0 0 60px rgba(255,255,255,0.02);
+    animation: containerFlicker 6s infinite;
 }
 
-@keyframes subtleShift {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(0.3px, -0.3px); }
+@keyframes containerFlicker {
+    0%, 100% { transform: translate(0); opacity: 1; }
+    92% { transform: translate(0.5px, -0.5px); }
+    94% { opacity: 0.95; }
+    96% { transform: translate(-0.5px, 0.5px); }
 }
 
 h1 {
-    color: #d6d6d6;
     font-weight: 300;
     letter-spacing: 6px;
     margin-bottom: 10px;
+    color: #e0e0e0;
     position: relative;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.04);
-    animation: flicker 3s infinite, microGlitch 8s infinite;
+    animation: flickerText 3s infinite, microGlitch 9s infinite;
+}
+
+@keyframes flickerText {
+    0%, 100% { opacity: 1; }
+    90% { opacity: 0.9; }
+    93% { opacity: 0.4; }
+    96% { opacity: 1; }
+}
+
+@keyframes microGlitch {
+    0%, 100% { transform: translate(0); }
+    50% { transform: translate(0.4px, -0.4px); }
 }
 
 h1::before,
@@ -52,9 +94,9 @@ h1::after {
     content: "???";
     position: absolute;
     left: 0;
-    width: 100%;
     top: 0;
-    opacity: 0.3;
+    width: 100%;
+    opacity: 0.25;
 }
 
 h1::before {
@@ -84,22 +126,8 @@ h1::after {
     100% { transform: translate(0); clip-path: inset(0 0 0 0); }
 }
 
-@keyframes flicker {
-    0%, 100% { opacity: 1; }
-    92% { opacity: 0.9; }
-    94% { opacity: 0.4; }
-    96% { opacity: 1; }
-}
-
-@keyframes microGlitch {
-    0%, 90%, 100% { letter-spacing: 6px; }
-    92% { letter-spacing: 5.5px; transform: skewX(0.5deg); }
-    94% { letter-spacing: 6.5px; transform: skewX(-0.5deg); }
-    96% { letter-spacing: 6px; transform: skewX(0deg); }
-}
-
 .subtitle {
-    color: #6a6a6a;
+    color: #6b6b6b;
     font-size: 13px;
     letter-spacing: 2px;
     margin-bottom: 20px;
@@ -107,13 +135,14 @@ h1::after {
 
 p {
     margin: 10px 0;
-    transition: 0.2s ease;
+    transition: 0.2s;
 }
 
 p:hover {
     text-shadow:
-        1px 0 rgba(143, 163, 179, 0.25),
-        -1px 0 rgba(179, 160, 255, 0.2);
+        1px 0 rgba(143,163,179,0.25),
+        -1px 0 rgba(179,160,255,0.2);
+    transform: translateX(1px);
 }
 
 .visitors {
@@ -122,48 +151,44 @@ p:hover {
 }
 
 button {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255,255,255,0.02);
     color: #c0c0c0;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255,255,255,0.08);
     border-radius: 10px;
     padding: 12px 20px;
     margin: 6px;
     cursor: pointer;
     transition: 0.25s ease;
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(10px);
 }
 
 button:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.2);
     color: #ffffff;
-    transform: translateY(-2px);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px) scale(1.01);
+    text-shadow: 0 0 10px rgba(255,255,255,0.1);
 }
 
 button:active {
-    transform: scale(0.98) translateY(1px);
+    transform: scale(0.98);
 }
 
 #count {
     margin-top: 15px;
-    color: #a9a9a9;
-    font-size: 16px;
+    color: #aaa;
 }
 
 #phrase {
     margin-top: 18px;
     color: #5f5f5f;
     font-style: italic;
-    min-height: 20px;
-    animation: noiseText 6s infinite;
+    animation: noise 6s infinite;
 }
 
-@keyframes noiseText {
-    0% { opacity: 1; }
+@keyframes noise {
+    0%, 100% { opacity: 1; }
     50% { opacity: 0.92; }
-    51% { opacity: 0.97; }
-    100% { opacity: 1; }
 }
 
 #clock {
@@ -178,7 +203,6 @@ button:active {
     font-size: 12px;
     letter-spacing: 1px;
     font-style: italic;
-    opacity: 0.9;
 }
 
 #tip {
@@ -190,10 +214,10 @@ button:active {
 .info-box {
     margin-top: 25px;
     padding: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255,255,255,0.06);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(14px);
 }
 
 .info-box h3 {
@@ -211,28 +235,11 @@ a {
 
 a:hover {
     color: #ffffff;
+    text-shadow: 0 0 8px rgba(255,255,255,0.1);
 }
 
 hr {
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255,255,255,0.06);
     margin: 18px 0;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(255, 255, 255, 0.02),
-        rgba(255, 255, 255, 0.02) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    pointer-events: none;
-    opacity: 0.02;
 }
