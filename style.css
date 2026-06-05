@@ -43,13 +43,57 @@ body {
 
 h1 {
     color: #d6d6d6;
-
     font-weight: 300;
     letter-spacing: 6px;
-
     margin-bottom: 10px;
-
+    position: relative;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.04);
+    animation: flicker 3s infinite;
+}
+
+h1::before,
+h1::after {
+    content: "???";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    top: 0;
+    opacity: 0.3;
+}
+
+h1::before {
+    color: #8fa3b3;
+    animation: glitch1 2.5s infinite;
+}
+
+h1::after {
+    color: #b3a0ff;
+    animation: glitch2 2.5s infinite;
+}
+
+@keyframes glitch1 {
+    0% { transform: translate(0); clip-path: inset(0 0 0 0); }
+    20% { transform: translate(-1px, 1px); clip-path: inset(10% 0 80% 0); }
+    40% { transform: translate(1px, -1px); clip-path: inset(80% 0 5% 0); }
+    60% { transform: translate(-1px, 0px); clip-path: inset(30% 0 40% 0); }
+    80% { transform: translate(1px, 1px); clip-path: inset(60% 0 20% 0); }
+    100% { transform: translate(0); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes glitch2 {
+    0% { transform: translate(0); clip-path: inset(0 0 0 0); }
+    25% { transform: translate(1px, -1px); clip-path: inset(15% 0 70% 0); }
+    50% { transform: translate(-1px, 1px); clip-path: inset(70% 0 10% 0); }
+    75% { transform: translate(1px, 0px); clip-path: inset(40% 0 30% 0); }
+    100% { transform: translate(0); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 0.9; }
+    94% { opacity: 0.4; }
+    96% { opacity: 1; }
 }
 
 .subtitle {
@@ -203,3 +247,5 @@ body::before {
 
     opacity: 0.02;
 }
+
+
