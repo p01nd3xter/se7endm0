@@ -131,3 +131,10 @@ hr {
 .socials a:hover {
     color: white;
 }
+
+.visitors {
+    color: #00ff88;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
