@@ -5,7 +5,7 @@
 }
 
 body {
-    background: radial-gradient(circle at center, #0a0a0a, #050505);
+    background: radial-gradient(circle at center, #070707, #030303);
     color: #cfcfcf;
     font-family: Arial, sans-serif;
 
@@ -20,13 +20,12 @@ body {
     overflow-x: hidden;
 }
 
-/* основной блок */
 .container {
     width: 100%;
     max-width: 520px;
 
-    background: rgba(15, 15, 15, 0.85);
-    border: 1px solid #1c1c1c;
+    background: rgba(18, 18, 18, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 
     border-radius: 18px;
 
@@ -34,26 +33,27 @@ body {
 
     text-align: center;
 
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
     box-shadow:
-        0 0 25px rgba(255, 255, 255, 0.03),
-        inset 0 0 40px rgba(0, 0, 0, 0.6);
+        0 0 30px rgba(0, 0, 0, 0.7),
+        inset 0 0 50px rgba(255, 255, 255, 0.02);
 }
 
-/* заголовок */
 h1 {
-    color: #d0d0d0;
+    color: #d6d6d6;
 
     font-weight: 300;
     letter-spacing: 6px;
 
     margin-bottom: 10px;
 
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.04);
 }
 
-/* подзаголовок */
 .subtitle {
-    color: #6e6e6e;
+    color: #6a6a6a;
 
     font-size: 13px;
     letter-spacing: 2px;
@@ -61,24 +61,21 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* текстовые блоки */
 p {
     margin: 10px 0;
 }
 
-/* посетители */
 .visitors {
     color: #8a8a8a;
     font-size: 14px;
 }
 
-/* кнопки */
 button {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.02);
 
-    color: #bdbdbd;
+    color: #c0c0c0;
 
-    border: 1px solid #2a2a2a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 10px;
 
     padding: 12px 20px;
@@ -88,37 +85,35 @@ button {
     cursor: pointer;
 
     transition: 0.25s ease;
-    letter-spacing: 1px;
+
+    backdrop-filter: blur(6px);
 }
 
 button:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: #444;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
 
     color: #ffffff;
 
     transform: translateY(-2px);
 }
 
-/* кликер */
 #count {
     margin-top: 15px;
 
-    color: #aaaaaa;
+    color: #a9a9a9;
     font-size: 16px;
 }
 
-/* случайные фразы */
 #phrase {
     margin-top: 18px;
 
-    color: #666;
+    color: #5f5f5f;
     font-style: italic;
 
     min-height: 20px;
 }
 
-/* часы */
 #clock {
     margin-top: 10px;
 
@@ -126,11 +121,10 @@ button:hover {
     font-size: 13px;
 }
 
-/* trace */
 #trace {
     margin-top: 12px;
 
-    color: #5f5f5f;
+    color: #555;
 
     font-size: 12px;
     letter-spacing: 1px;
@@ -140,31 +134,28 @@ button:hover {
     opacity: 0.9;
 }
 
-/* совет */
 #tip {
     margin-top: 10px;
 
-    color: #888;
+    color: #8a8a8a;
     font-size: 13px;
 }
 
-/* инфо-блок */
 .info-box {
     margin-top: 25px;
 
     padding: 18px;
 
-    border: 1px solid #1e1e1e;
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 12px;
 
     background: rgba(255, 255, 255, 0.02);
 
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(10px);
 }
 
-/* заголовки внутри блока */
 .info-box h3 {
-    color: #bdbdbd;
+    color: #cfcfcf;
 
     font-weight: 300;
     letter-spacing: 3px;
@@ -172,9 +163,8 @@ button:hover {
     margin: 12px 0;
 }
 
-/* ссылки */
 a {
-    color: #8f9aa3;
+    color: #8fa3b3;
 
     text-decoration: none;
 
@@ -185,15 +175,13 @@ a:hover {
     color: #ffffff;
 }
 
-/* разделитель */
 hr {
     border: none;
-    border-top: 1px solid #1f1f1f;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 
     margin: 18px 0;
 }
 
-/* лёгкий шум */
 body::before {
     content: "";
     position: fixed;
@@ -213,5 +201,5 @@ body::before {
 
     pointer-events: none;
 
-    opacity: 0.03;
+    opacity: 0.02;
 }
