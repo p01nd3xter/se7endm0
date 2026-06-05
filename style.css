@@ -28,9 +28,10 @@ h1 {
 }
 
 .avatar {
-    width: 150px;
+    width: 40%;
+    max-width: 150px;
+    height: auto;
     border-radius: 50%;
-    margin: 20px 0;
 }
 
 button {
