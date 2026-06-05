@@ -12,6 +12,15 @@ h4 {
     font-size: 28px;
 }
 
+a {
+    color: #00bfff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 button {
     background-color: #222;
     color: white;
