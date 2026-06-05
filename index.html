@@ -12,9 +12,7 @@
 
     <h1>V01D?3</h1>
 
-    <p class="subtitle">
-        Доступ разрешён
-    </p>
+    <p class="subtitle">Доступ разрешён</p>
 
     <p class="visitors">
         Посетителей сайта: <span id="visits">...</span>
@@ -26,29 +24,20 @@
 
     <p id="count">Просто кликер: 0</p>
 
-    <button onclick="plus()">
-        КЛИК
-    </button>
+    <button onclick="plus()">КЛИК</button>
 
-    <button onclick="tip()">
-        Совет
-    </button>
+    <button onclick="tip()">Совет</button>
 
     <p id="phrase"></p>
-
     <p id="clock"></p>
-
     <p id="trace"></p>
-
     <p id="tip"></p>
 
     <div class="info-box">
 
         <h3>Сигнал</h3>
 
-        <p>
-            Этот сайт существует как эксперимент.
-        </p>
+        <p>Этот сайт существует как эксперимент.</p>
 
         <hr>
 
@@ -77,7 +66,6 @@ document.getElementById("count").textContent =
 function plus() {
     n++;
     localStorage.setItem("clicks", n);
-
     document.getElementById("count").textContent =
         "Просто кликер: " + n;
 }
@@ -94,6 +82,17 @@ function tip() {
         tips[Math.floor(Math.random() * tips.length)];
 }
 
+const phrases = [
+    "...",
+    "Сигнал потерян",
+    "Доступ разрешён",
+    "Наблюдение активно",
+    "Ошибка восприятия"
+];
+
+document.getElementById("phrase").textContent =
+    phrases[Math.floor(Math.random() * phrases.length)];
+
 const fakeLocations = [
     "Определение местоположения...",
     "Сигнал слабый...",
@@ -106,15 +105,46 @@ const fakeLocations = [
 let t = 0;
 
 const traceInterval = setInterval(() => {
-    document.getElementById("trace").textContent =
-        fakeLocations[t % fakeLocations.length];
+    const trace = document.getElementById("trace");
 
+    trace.textContent = fakeLocations[t % fakeLocations.length];
     t++;
 
     if (t > 8) {
         clearInterval(traceInterval);
-        document.getElementById("trace").textContent =
-            "Местоположение: Обнаружено.";
+
+        trace.textContent = "Местоположение: Обнаружено.";
+        trace.classList.add("alert");
+
+        let flash = 0;
+
+        const pulse = setInterval(() => {
+            flash++;
+
+            const variants = [
+                "Местоположение: ОБНАРУЖЕНО",
+                "Местоположение: !!! ОБНАРУЖЕНО !!!",
+                "Местоположение: ▓▓ ОБНАРУЖЕНО ▓▓",
+                "Местоположение: Обнаружено."
+            ];
+
+            trace.textContent = variants[flash % variants.length];
+
+            if (flash === 6) {
+                document.body.style.filter = "invert(1)";
+            }
+
+            if (flash === 7) {
+                document.body.style.filter = "none";
+            }
+
+            if (flash > 10) {
+                clearInterval(pulse);
+                trace.classList.remove("alert");
+                trace.textContent = "Местоположение: недоступно";
+            }
+
+        }, 180);
     }
 }, 700);
 
