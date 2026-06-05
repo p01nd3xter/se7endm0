@@ -13,46 +13,80 @@
     <h1>[+] SE7ENDM0 [+]</h1>
 
     <p class="subtitle">
-        Зачем ты сюда зашёл? 🤨
+        доступ разрешён
     </p>
 
     <p class="visitors">
-    Посетителей сайта: <span id="visits">Загрузка...</span>
+        Посетителей сайта: <span id="visits">...</span>
     </p>
 
-    <button onclick="alert('Я же говорил не нажимать 😐')">
+    <button onclick="alert('Я же говорил не нажимать.')">
         Не нажимай
     </button>
 
-    <button onclick="alert('Ну вот, опять нажал 🙄')">
-        Точно не нажимай
+    <button onclick="alert('Ну вот. Опять.')">
+        Всё-таки нажал
     </button>
 
     <p id="count">Просто кликер: 0</p>
 
     <button onclick="plus()">
-        КЛИК!
+        КЛИК
     </button>
 
     <p id="phrase"></p>
 
     <p id="clock"></p>
 
-    <hr>
+    <div class="info-box">
 
-    <p>
-        inst:
-        <a href="https://instagram.com/se7endm0" target="_blank">
-            se7endm0
-        </a>
-    </p>
+        <h3>Сигнал</h3>
 
-    <p>
-        tiktok:
-        <a href="https://tiktok.com/@pp01nd3x" target="_blank">
-            pp01nd3x
-        </a>
-    </p>
+        <p>
+            Иногда здесь появляются случайные проекты,
+            скрипты и странные идеи.
+        </p>
+
+        <p>
+            Этот сайт существует скорее как эксперимент,
+            чем как что-то полезное.
+        </p>
+
+        <p class="quote">
+            "ничего интересного не найдено"
+        </p>
+
+        <hr>
+
+        <p>
+            inst:
+            <a href="https://instagram.com/se7endm0" target="_blank">
+                se7endm0
+            </a>
+        </p>
+
+        <p>
+            tiktok:
+            <a href="https://tiktok.com/@pp01nd3x" target="_blank">
+                pp01nd3x
+            </a>
+        </p>
+
+        <p>
+            telegram:
+            <a href="https://t.me/juuzmusic_bot" target="_blank">
+                @juuzmusic_bot
+            </a>
+        </p>
+
+        <p>
+            github:
+            <a href="https://github.com/p01nd3xter/python-practice-scripts" target="_blank">
+                python-practice-scripts
+            </a>
+        </p>
+
+    </div>
 
 </div>
 
@@ -71,13 +105,15 @@ function plus() {
 }
 
 const phrases = [
-    "Тут ничего нет.",
-    "Ты всё ещё здесь?",
-    "Я предупреждал.",
-    "Серьёзно?",
-    "Ну ладно.",
-    "Сайт создан за 5 минут.",
-    "Ты ожидал чего-то другого?"
+    "...",
+    "сигнал потерян",
+    "доступ разрешён",
+    "наблюдение активно",
+    "ничего интересного",
+    "продолжай искать",
+    "конец связи",
+    "ошибка восприятия",
+    "здесь пусто"
 ];
 
 document.getElementById("phrase").textContent =
@@ -85,19 +121,10 @@ document.getElementById("phrase").textContent =
 
 setInterval(() => {
     document.getElementById("clock").textContent =
-        "Время: " + new Date().toLocaleTimeString();
+        new Date().toLocaleTimeString();
 }, 1000);
-</script>
 
-<script>
-fetch("https://api.countapi.xyz/hit/se7endm0/")
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("visits").textContent = data.value;
-    })
-    .catch(() => {
-        document.getElementById("visits").textContent = "?";
-    });
+document.getElementById("visits").textContent = "неизвестно";
 </script>
 
 </body>
