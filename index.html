@@ -4,52 +4,54 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h4>Зачем ты сюда зашел?))</h4>
+  <div class="container">
+    <h4>Зачем ты сюда зашел?))</h4>
 
-  <button onclick="alert('Иди нахуй')">
-    Не нажимай
-  </button>
+    <button onclick="alert('Иди нахуй')">
+      Не нажимай
+    </button>
   
-  <p><button onclick="alert('Поздравляю. Ты нажал кнопку.')">
-    Не нажимай
-  </button></p>
+    <p><button onclick="alert('Поздравляю. Ты нажал кнопку.')">
+      Не нажимай
+    </button></p>
 
-  <p id="count">Просто кликер: 1</p>
+    <p id="count">Просто кликер: 1</p>
 
-  <button onclick="plus()">КЛИК!</button>
+    <button onclick="plus()">КЛИК!</button>
 
-  <script>
-  let n = 1;
+    <script>
+    let n = 1;
 
-  function plus() {
-      n++;
-      document.getElementById("count").textContent =
-          "Просто кликер: " + n;
-  }
-  </script>
+    function plus() {
+        n++;
+        document.getElementById("count").textContent =
+            "Просто кликер: " + n;
+    }
+    </script>
 
-  <p id="text"></p>
+    <p id="text"></p>
 
-  <script>
-  const phrases = [
-      "Тут ничего нет.",
-      "Ты всё ещё здесь?",
-      "Я предупреждал.",
-      "Серьёзно?",
-      "Ну ладно."
-  ];
+    <script>
+    const phrases = [
+        "Тут ничего нет.",
+        "Ты всё ещё здесь?",
+        "Я предупреждал.",
+        "Серьёзно?",
+        "Ну ладно."
+    ];
 
-  document.getElementById("text").textContent =
-      phrases[Math.floor(Math.random() * phrases.length)];
-  </script>
+    document.getElementById("text").textContent =
+        phrases[Math.floor(Math.random() * phrases.length)];
+    </script>
 
-  <p>
-  inst:
-  <a href="https://instagram.com/se7endm0">se7endm0</a>
-  </p>
+    <p>
+    inst:
+    <a href="https://instagram.com/se7endm0">se7endm0</a>
+    </p>
 
-  <p>
-  tiktok:
-  <a href="https://tiktok.com/@pp01nd3x">pp01nd3x</a>
-  </p>
+    <p>
+    tiktok:
+    <a href="https://tiktok.com/@pp01nd3x">pp01nd3x</a>
+    </p>
+  </div>
 </body>
