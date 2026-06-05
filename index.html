@@ -50,9 +50,6 @@
             Этот сайт существует как эксперимент.
         </p>
 
-        <h3>Диагностика</h3>
-        <p id="diagnostic"></p>
-
         <hr>
 
         <p>
@@ -89,37 +86,13 @@ function tip() {
     const tips = [
         "Не доверяй тишине.",
         "Не ищи источник сигнала.",
-        "Не доверяй тишине.",
-        "Не сопротивляйся системе."
+        "Не сопротивляйся системе.",
+        "Совет: не пытайся убегать."
     ];
 
     document.getElementById("tip").textContent =
         tips[Math.floor(Math.random() * tips.length)];
 }
-
-const phrases = [
-    "...",
-    "Сигнал потерян",
-    "Доступ разрешён",
-    "Наблюдение активно",
-    "Ничего интересного",
-    "Продолжай искать",
-    "Конец связи",
-    "Ошибка восприятия",
-    "Здесь пусто"
-];
-
-document.getElementById("phrase").textContent =
-    phrases[Math.floor(Math.random() * phrases.length)];
-
-const diag = [
-    "Пользователь выглядит подозрительно.",
-    "Посетитель не знает зачем он здесь.",
-    "Зафиксирована попытка найти смысл.",
-];
-
-document.getElementById("diagnostic").textContent =
-    diag[Math.floor(Math.random() * diag.length)];
 
 const fakeLocations = [
     "Определение местоположения...",
