@@ -1,42 +1,91 @@
 <!DOCTYPE html>
+<html lang="ru">
 <head>
-  <title>SE7ENDM0</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SE7ENDM0</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h4>[+] SE7ENDM0 [+]</h4>
 
-    <button onclick="alert('Иди нахуй')">
-      Кнопка
+<div class="container">
+
+    <h1>[+] SE7ENDM0 [+]</h1>
+
+    <p class="subtitle">
+        Зачем ты сюда зашёл? 🤨
+    </p>
+
+    <img src="lol.jpg" alt="Смайл" class="avatar">
+
+    <button onclick="alert('Я же говорил не нажимать 😐')">
+        Не нажимай
     </button>
-  
-    <p><button onclick="alert('Поздравляю. Ты нажал кнопку.')">
-      Кнопка
-    </button></p>
 
-    <p id="count">Просто кликер: 1</p>
+    <button onclick="alert('Ну вот, опять нажал 🙄')">
+        Точно не нажимай
+    </button>
 
-    <button onclick="plus()">КЛИК!</button>
+    <p id="count">Просто кликер: 0</p>
 
-    <script>
-    let n = 1;
+    <button onclick="plus()">
+        КЛИК!
+    </button>
 
-    function plus() {
-        n++;
-        document.getElementById("count").textContent =
-            "Просто кликер: " + n;
-    }
-    </script>
+    <p id="phrase"></p>
+
+    <p id="clock"></p>
+
+    <hr>
 
     <p>
-    inst:
-    <a href="https://instagram.com/se7endm0">se7endm0</a>
+        inst:
+        <a href="https://instagram.com/se7endm0" target="_blank">
+            se7endm0
+        </a>
     </p>
 
     <p>
-    tiktok:
-    <a href="https://tiktok.com/@pp01nd3x">pp01nd3x</a>
+        tiktok:
+        <a href="https://tiktok.com/@pp01nd3x" target="_blank">
+            pp01nd3x
+        </a>
     </p>
-  </div>
+
+</div>
+
+<script>
+let n = localStorage.getItem("clicks") || 0;
+
+document.getElementById("count").textContent =
+    "Просто кликер: " + n;
+
+function plus() {
+    n++;
+    localStorage.setItem("clicks", n);
+
+    document.getElementById("count").textContent =
+        "Просто кликер: " + n;
+}
+
+const phrases = [
+    "Тут ничего нет.",
+    "Ты всё ещё здесь?",
+    "Я предупреждал.",
+    "Серьёзно?",
+    "Ну ладно.",
+    "Сайт создан за 5 минут.",
+    "Ты ожидал чего-то другого?"
+];
+
+document.getElementById("phrase").textContent =
+    phrases[Math.floor(Math.random() * phrases.length)];
+
+setInterval(() => {
+    document.getElementById("clock").textContent =
+        "Время: " + new Date().toLocaleTimeString();
+}, 1000);
+</script>
+
 </body>
+</html>
