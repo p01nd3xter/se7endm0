@@ -5,8 +5,8 @@
 }
 
 body {
-    background: #090909;
-    color: #d8d8d8;
+    background: radial-gradient(circle at center, #0a0a0a, #050505);
+    color: #cfcfcf;
     font-family: Arial, sans-serif;
 
     min-height: 100vh;
@@ -16,179 +16,202 @@ body {
     align-items: center;
 
     padding: 20px;
+
+    overflow-x: hidden;
 }
 
+/* основной блок */
 .container {
     width: 100%;
-    max-width: 500px;
+    max-width: 520px;
 
-    background: #111111;
+    background: rgba(15, 15, 15, 0.85);
+    border: 1px solid #1c1c1c;
 
-    border: 1px solid #1f1f1f;
-    border-radius: 20px;
+    border-radius: 18px;
 
     padding: 35px;
 
     text-align: center;
 
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.03);
+    box-shadow:
+        0 0 25px rgba(255, 255, 255, 0.03),
+        inset 0 0 40px rgba(0, 0, 0, 0.6);
 }
 
-.avatar {
-    width: 120px;
-    height: 120px;
-
-    object-fit: cover;
-
-    border-radius: 50%;
-
-    border: 1px solid #222;
-
-    filter: grayscale(100%);
-
-    margin-bottom: 25px;
-}
-
+/* заголовок */
 h1 {
     color: #d0d0d0;
 
-    font-size: 28px;
     font-weight: 300;
-
-    letter-spacing: 4px;
+    letter-spacing: 6px;
 
     margin-bottom: 10px;
+
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
 }
 
+/* подзаголовок */
 .subtitle {
     color: #6e6e6e;
 
-    font-size: 14px;
+    font-size: 13px;
+    letter-spacing: 2px;
 
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
+/* текстовые блоки */
+p {
+    margin: 10px 0;
+}
+
+/* посетители */
+.visitors {
+    color: #8a8a8a;
+    font-size: 14px;
+}
+
+/* кнопки */
 button {
     background: transparent;
 
-    color: #c8c8c8;
+    color: #bdbdbd;
 
-    border: 1px solid #2d2d2d;
+    border: 1px solid #2a2a2a;
     border-radius: 10px;
 
-    padding: 12px 22px;
+    padding: 12px 20px;
 
     margin: 6px;
 
     cursor: pointer;
 
-    transition: 0.3s;
+    transition: 0.25s ease;
+    letter-spacing: 1px;
 }
 
 button:hover {
-    background: #171717;
+    background: rgba(255, 255, 255, 0.04);
+    border-color: #444;
 
-    border-color: #555;
+    color: #ffffff;
 
-    color: white;
+    transform: translateY(-2px);
 }
 
+/* кликер */
 #count {
-    margin-top: 20px;
-    color: #b5b5b5;
-    font-size: 17px;
+    margin-top: 15px;
+
+    color: #aaaaaa;
+    font-size: 16px;
 }
 
+/* случайные фразы */
 #phrase {
-    color: #565656;
+    margin-top: 18px;
+
+    color: #666;
+    font-style: italic;
+
+    min-height: 20px;
+}
+
+/* часы */
+#clock {
+    margin-top: 10px;
+
+    color: #7a7a7a;
+    font-size: 13px;
+}
+
+/* trace */
+#trace {
+    margin-top: 12px;
+
+    color: #5f5f5f;
+
+    font-size: 12px;
+    letter-spacing: 1px;
 
     font-style: italic;
 
-    margin-top: 20px;
+    opacity: 0.9;
 }
 
-#clock {
-    color: #7a7a7a;
+/* совет */
+#tip {
+    margin-top: 10px;
 
-    margin-top: 15px;
-
-    font-size: 14px;
+    color: #888;
+    font-size: 13px;
 }
 
-.visitors {
-    color: #8a8a8a;
-
-    font-size: 15px;
-
-    margin-bottom: 15px;
-}
-
-hr {
-    border: none;
-
-    border-top: 1px solid #222;
-
-    margin: 25px 0;
-}
-
-a {
-    color: #8a96a3;
-
-    text-decoration: none;
-
-    transition: 0.3s;
-}
-
-a:hover {
-    color: white;
-}
-
-p {
-    margin: 10px 0;
-}
-
-.socials {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
+/* инфо-блок */
 .info-box {
-    margin-top: 30px;
+    margin-top: 25px;
 
-    padding: 20px;
+    padding: 18px;
 
-    border: 1px solid #222;
-
+    border: 1px solid #1e1e1e;
     border-radius: 12px;
 
-    background: rgba(255,255,255,0.02);
+    background: rgba(255, 255, 255, 0.02);
+
+    backdrop-filter: blur(3px);
 }
 
+/* заголовки внутри блока */
 .info-box h3 {
     color: #bdbdbd;
 
-    font-weight: normal;
+    font-weight: 300;
+    letter-spacing: 3px;
 
-    margin-bottom: 15px;
-
-    letter-spacing: 2px;
+    margin: 12px 0;
 }
 
-.info-box p {
-    margin: 10px 0;
+/* ссылки */
+a {
+    color: #8f9aa3;
 
-    color: #777;
+    text-decoration: none;
 
-    line-height: 1.5;
+    transition: 0.2s;
 }
 
-.quote {
-    color: #555;
-
-    font-style: italic;
+a:hover {
+    color: #ffffff;
 }
 
-.info-box hr {
-    margin: 20px 0;
+/* разделитель */
+hr {
+    border: none;
+    border-top: 1px solid #1f1f1f;
+
+    margin: 18px 0;
+}
+
+/* лёгкий шум */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.02),
+        rgba(255, 255, 255, 0.02) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+
+    pointer-events: none;
+
+    opacity: 0.03;
 }
