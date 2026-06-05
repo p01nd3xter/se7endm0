@@ -123,30 +123,33 @@ const traceInterval = setInterval(() => {
 
             const variants = [
                 "Местоположение: ОБНАРУЖЕНО",
+                "Местоположение: ACCESS DENIED",
                 "Местоположение: !!! ОБНАРУЖЕНО !!!",
+                "Местоположение: N3 D0STUPN0",
                 "Местоположение: ▓▓ ОБНАРУЖЕНО ▓▓",
+                "Местоположение: ACCESS DENIED",
                 "Местоположение: Обнаружено."
             ];
 
             trace.textContent = variants[flash % variants.length];
 
-            if (flash === 6) {
+            if (flash === 7) {
                 document.body.style.filter = "invert(1)";
             }
 
-            if (flash === 7) {
+            if (flash === 8) {
                 document.body.style.filter = "none";
             }
 
             if (flash > 10) {
                 clearInterval(pulse);
                 trace.classList.remove("alert");
-                trace.textContent = "Местоположение: недоступно";
+                trace.textContent = "Местоположение: Доступно";
             }
 
-        }, 180);
+        }, 400);
     }
-}, 700);
+}, 450);
 
 setInterval(() => {
     document.getElementById("clock").textContent =
