@@ -89,6 +89,7 @@ setInterval(() => {
 }, 1000);
 </script>
 
+<script>
 fetch("https://api.countapi.xyz/hit/se7endm0/funny-page")
     .then(res => res.json())
     .then(data => {
@@ -97,6 +98,7 @@ fetch("https://api.countapi.xyz/hit/se7endm0/funny-page")
     .catch(() => {
         document.getElementById("visits").textContent = "?";
     });
+</script>
 
 </body>
 </html>
