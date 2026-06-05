@@ -1,81 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background: #111;
+    background: #0f0f0f;
     color: white;
     font-family: Arial, sans-serif;
-    text-align: center;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
 }
 
 .container {
-    width: 500px;
-    max-width: 90%;
-    margin: 50px auto;
+    width: 100%;
+    max-width: 500px;
 
-    background: #1b1b1b;
+    background: #1a1a1a;
 
-    padding: 30px;
+    border: 1px solid #333;
+    border-radius: 25px;
 
-    border-radius: 20px;
+    padding: 35px;
 
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
-}
+    text-align: center;
 
-h1 {
-    margin-bottom: 10px;
-}
-
-.subtitle {
-    color: #999;
+    box-shadow: 0 0 30px rgba(0,255,255,0.08);
 }
 
 .avatar {
-    width: 40%;
-    max-width: 150px;
-    height: auto;
+    width: 140px;
+    height: 140px;
+
+    object-fit: cover;
+
     border-radius: 50%;
+
+    border: 3px solid #00e5ff;
+
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #00e5ff;
+    margin-bottom: 10px;
+
+    text-shadow: 0 0 15px rgba(0,229,255,0.5);
+}
+
+.subtitle {
+    color: #aaa;
+    margin-bottom: 25px;
+}
+
+.buttons {
+    margin-bottom: 25px;
 }
 
 button {
     background: #222;
+
     color: white;
 
     border: 1px solid #444;
-    border-radius: 10px;
+    border-radius: 12px;
 
     padding: 12px 20px;
-    margin: 10px;
+
+    margin: 6px;
 
     cursor: pointer;
 
-    transition: 0.2s;
+    transition: 0.25s;
 }
 
 button:hover {
-    background: #333;
-    transform: scale(1.05);
+    background: #00e5ff;
+    color: black;
+
+    transform: translateY(-3px);
 }
 
-a {
-    color: #00bfff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
+#count {
+    margin-bottom: 10px;
+    font-size: 18px;
 }
 
 #phrase {
-    margin-top: 20px;
-    color: #aaa;
+    color: #8f8f8f;
     font-style: italic;
+
+    margin-top: 20px;
 }
 
 #clock {
-    margin-top: 15px;
     color: #00ff88;
+
+    margin-top: 15px;
+
+    font-weight: bold;
 }
 
 hr {
     border: none;
     border-top: 1px solid #333;
+
     margin: 25px 0;
+}
+
+.socials {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.socials a {
+    color: #00e5ff;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.socials a:hover {
+    color: white;
 }
