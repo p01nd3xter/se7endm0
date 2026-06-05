@@ -16,6 +16,10 @@
         Зачем ты сюда зашёл? 🤨
     </p>
 
+    <p class="visitors">
+    Посетителей сайта: <span id="visits">Загрузка...</span>
+    </p>
+
     <button onclick="alert('Я же говорил не нажимать 😐')">
         Не нажимай
     </button>
@@ -84,6 +88,15 @@ setInterval(() => {
         "Время: " + new Date().toLocaleTimeString();
 }, 1000);
 </script>
+
+fetch("https://api.countapi.xyz/hit/se7endm0/funny-page")
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("visits").textContent = data.value;
+    })
+    .catch(() => {
+        document.getElementById("visits").textContent = "?";
+    });
 
 </body>
 </html>
