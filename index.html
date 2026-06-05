@@ -61,16 +61,6 @@
         </p>
 
         <p>
-            tiktok:
-            <a href="https://tiktok.com/@pp01nd3x" target="_blank">pp01nd3x</a>
-        </p>
-
-        <p>
-            telegram bot:
-            <a href="https://t.me/juuzmusic_bot" target="_blank">@juuzmusic_bot</a>
-        </p>
-
-        <p>
             github:
             <a href="https://github.com/p01nd3xter/python-practice-scripts" target="_blank">
                 python-practice-scripts
@@ -97,10 +87,10 @@ function plus() {
 
 function tip() {
     const tips = [
-        "Делай бэкапы.",
-        "Читай ошибки полностью.",
-        "Не храни пароли в коде.",
-        "Git commit чаще."
+        "Не доверяй тишине.",
+        "Не ищи источник сигнала.",
+        "Не доверяй тишине.",
+        "Не сопротивляйся системе."
     ];
 
     document.getElementById("tip").textContent =
@@ -109,14 +99,14 @@ function tip() {
 
 const phrases = [
     "...",
-    "сигнал потерян",
-    "доступ разрешён",
-    "наблюдение активно",
-    "ничего интересного",
-    "продолжай искать",
-    "конец связи",
-    "ошибка восприятия",
-    "здесь пусто"
+    "Сигнал потерян",
+    "Доступ разрешён",
+    "Наблюдение активно",
+    "Ничего интересного",
+    "Продолжай искать",
+    "Конец связи",
+    "Ошибка восприятия",
+    "Здесь пусто"
 ];
 
 document.getElementById("phrase").textContent =
@@ -124,10 +114,8 @@ document.getElementById("phrase").textContent =
 
 const diag = [
     "Пользователь выглядит подозрительно.",
-    "Обнаружен высокий уровень любопытства.",
     "Посетитель не знает зачем он здесь.",
     "Зафиксирована попытка найти смысл.",
-    "Обнаружен человек."
 ];
 
 document.getElementById("diagnostic").textContent =
@@ -150,12 +138,12 @@ const traceInterval = setInterval(() => {
 
     t++;
 
-    if (t > 12) {
+    if (t > 8) {
         clearInterval(traceInterval);
         document.getElementById("trace").textContent =
-            "Местоположение: Обнаружено. Вся информация передана владельцу. ";
+            "Местоположение: Обнаружено.";
     }
-}, 900);
+}, 700);
 
 setInterval(() => {
     document.getElementById("clock").textContent =
