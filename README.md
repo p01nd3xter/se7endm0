@@ -9,7 +9,7 @@
 Код можно свободно изучать и использовать в своих проектах.
 
 ## Ссылки
-- Сайт: https://se7endm0.github.io
+- Сайт: https://p01nd3xter.github.io/se7endm0/
 - TikTok: https://www.tiktok.com/@pp01nd3x
 
 ---
