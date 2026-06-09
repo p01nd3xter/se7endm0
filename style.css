@@ -236,7 +236,6 @@ hr {
     margin: 18px 0;
 }
 
-/* TRACE — обычное состояние */
 #trace {
     margin-top: 12px;
     color: #555;
@@ -246,7 +245,6 @@ hr {
     transition: 0.2s;
 }
 
-/* TRACE — тревожный режим */
 #trace.alert {
     color: #ff3b3b;
     font-weight: 400;
