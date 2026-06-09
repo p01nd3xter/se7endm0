@@ -15,7 +15,7 @@
 ---
 
 ## 🔗 Ссылки
-- 🌍 Сайт: https://se7endm0.github.io
+- 🌍 Сайт: [https://se7endm0.github.io](https://p01nd3xter.github.io/se7endm0/)
 - 📸 Instagram: https://instagram.com/se7endm0
 - 🎵 TikTok: https://www.tiktok.com/@pp01nd3x
 
