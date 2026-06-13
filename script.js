@@ -306,3 +306,321 @@ document.addEventListener("touchstart", () => {
 }, { passive: true });
 document.addEventListener("touchend",  () => clearTimeout(longPressTimer), { passive: true });
 document.addEventListener("touchmove", () => clearTimeout(longPressTimer), { passive: true });
+
+// ===================== SNAKE GAME =====================
+const snakeCanvas  = document.getElementById("snake-canvas");
+const snakeCtx     = snakeCanvas.getContext("2d");
+const snakeOverlay = document.getElementById("snake-overlay");
+const snakeMsg     = document.getElementById("snake-msg");
+const snakeScore   = document.getElementById("snake-score");
+const snakeBest    = document.getElementById("snake-best");
+
+const CELL = 20;
+const COLS = snakeCanvas.width  / CELL;
+const ROWS = snakeCanvas.height / CELL;
+
+let snake, dir, nextDir, food, snakeInterval, sScore, sRunning = false;
+let sBest = parseInt(localStorage.getItem("snake_best") || "0");
+snakeBest.textContent = sBest;
+
+function snakeRand() {
+  return { x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS) };
+}
+
+function placeFood(body) {
+  let f;
+  do { f = snakeRand(); } while (body.some(s => s.x === f.x && s.y === f.y));
+  return f;
+}
+
+function initSnake() {
+  snake    = [{ x: 6, y: 6 }, { x: 5, y: 6 }, { x: 4, y: 6 }];
+  dir      = { x: 1, y: 0 };
+  nextDir  = { x: 1, y: 0 };
+  food     = placeFood(snake);
+  sScore   = 0;
+  snakeScore.textContent = 0;
+}
+
+function drawSnake() {
+  snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+
+  // grid
+  snakeCtx.strokeStyle = "rgba(255,255,255,0.04)";
+  snakeCtx.lineWidth = 0.5;
+  for (let x = 0; x <= COLS; x++) { snakeCtx.beginPath(); snakeCtx.moveTo(x*CELL,0); snakeCtx.lineTo(x*CELL,snakeCanvas.height); snakeCtx.stroke(); }
+  for (let y = 0; y <= ROWS; y++) { snakeCtx.beginPath(); snakeCtx.moveTo(0,y*CELL); snakeCtx.lineTo(snakeCanvas.width,y*CELL); snakeCtx.stroke(); }
+
+  // food
+  snakeCtx.fillStyle = "#ff4fd8";
+  snakeCtx.shadowColor = "#ff4fd8";
+  snakeCtx.shadowBlur = 12;
+  snakeCtx.beginPath();
+  snakeCtx.arc(food.x*CELL+CELL/2, food.y*CELL+CELL/2, CELL/2-2, 0, Math.PI*2);
+  snakeCtx.fill();
+  snakeCtx.shadowBlur = 0;
+
+  // snake
+  snake.forEach((s, i) => {
+    const t = i / snake.length;
+    snakeCtx.fillStyle = i === 0 ? "#00d4ff" : `hsl(${200 + t*60},100%,${60 - t*20}%)`;
+    snakeCtx.shadowColor = i === 0 ? "#00d4ff" : "transparent";
+    snakeCtx.shadowBlur  = i === 0 ? 10 : 0;
+    snakeCtx.beginPath();
+    snakeCtx.roundRect(s.x*CELL+1, s.y*CELL+1, CELL-2, CELL-2, 4);
+    snakeCtx.fill();
+  });
+  snakeCtx.shadowBlur = 0;
+}
+
+function stepSnake() {
+  dir = { ...nextDir };
+  const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+
+  if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS ||
+      snake.some(s => s.x === head.x && s.y === head.y)) {
+    clearInterval(snakeInterval);
+    sRunning = false;
+    snakeOverlay.style.display = "flex";
+    if (sScore > sBest) {
+      sBest = sScore;
+      localStorage.setItem("snake_best", sBest);
+      snakeBest.textContent = sBest;
+      snakeMsg.textContent = "новый рекорд! 🏆";
+      confetti({ particleCount: 60, spread: 70, origin: { y: 0.5 } });
+    } else {
+      snakeMsg.textContent = `игра окончена 💀 (счёт: ${sScore})`;
+    }
+    return;
+  }
+
+  snake.unshift(head);
+  if (head.x === food.x && head.y === food.y) {
+    sScore++;
+    snakeScore.textContent = sScore;
+    food = placeFood(snake);
+    navigator.vibrate && navigator.vibrate(15);
+    if (sScore % 5 === 0) showToast(`змейка растёт 🐍 (${sScore})`);
+  } else {
+    snake.pop();
+  }
+  drawSnake();
+}
+
+function startSnake() {
+  if (sRunning) return;
+  sRunning = true;
+  snakeOverlay.style.display = "none";
+  initSnake();
+  drawSnake();
+  const speed = 150;
+  snakeInterval = setInterval(stepSnake, speed);
+}
+
+snakeOverlay.addEventListener("click", startSnake);
+snakeCanvas.addEventListener("click", () => { if (!sRunning) startSnake(); });
+
+document.getElementById("s-up").addEventListener("click",    () => { if (dir.y !== 1)  nextDir = { x:0, y:-1 }; });
+document.getElementById("s-down").addEventListener("click",  () => { if (dir.y !== -1) nextDir = { x:0, y:1  }; });
+document.getElementById("s-left").addEventListener("click",  () => { if (dir.x !== 1)  nextDir = { x:-1,y:0  }; });
+document.getElementById("s-right").addEventListener("click", () => { if (dir.x !== -1) nextDir = { x:1, y:0  }; });
+
+document.addEventListener("keydown", (e) => {
+  if (!sRunning) { if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)) { e.preventDefault(); startSnake(); } return; }
+  if (e.key === "ArrowUp"    && dir.y !== 1)  { e.preventDefault(); nextDir = { x:0, y:-1 }; }
+  if (e.key === "ArrowDown"  && dir.y !== -1) { e.preventDefault(); nextDir = { x:0, y:1  }; }
+  if (e.key === "ArrowLeft"  && dir.x !== 1)  { e.preventDefault(); nextDir = { x:-1,y:0  }; }
+  if (e.key === "ArrowRight" && dir.x !== -1) { e.preventDefault(); nextDir = { x:1, y:0  }; }
+});
+
+// swipe on canvas
+let cTouchX = 0, cTouchY = 0;
+snakeCanvas.addEventListener("touchstart", e => { cTouchX = e.touches[0].clientX; cTouchY = e.touches[0].clientY; e.preventDefault(); }, { passive: false });
+snakeCanvas.addEventListener("touchend", e => {
+  if (!sRunning) { startSnake(); return; }
+  const dx = e.changedTouches[0].clientX - cTouchX;
+  const dy = e.changedTouches[0].clientY - cTouchY;
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (dx > 20 && dir.x !== -1) nextDir = { x:1,  y:0 };
+    if (dx < -20 && dir.x !== 1)  nextDir = { x:-1, y:0 };
+  } else {
+    if (dy > 20 && dir.y !== -1) nextDir = { x:0, y:1  };
+    if (dy < -20 && dir.y !== 1)  nextDir = { x:0, y:-1 };
+  }
+  e.preventDefault();
+}, { passive: false });
+
+drawSnake();
+
+// ===================== ACHIEVEMENTS =====================
+const allAchieves = [
+  { id:"first_click",   emoji:"👆", label:"первый клик",    desc:"кликни хоть раз",       check: () => clicks >= 1 },
+  { id:"clicker100",    emoji:"💯", label:"100 кликов",     desc:"настоящий кликер",       check: () => clicks >= 100 },
+  { id:"clicker500",    emoji:"🔥", label:"500 кликов",     desc:"ты не в порядке",        check: () => clicks >= 500 },
+  { id:"video_half",    emoji:"📽",  label:"половина",       desc:"досмотри до 50%",        check: () => half50shown },
+  { id:"video_end",     emoji:"✅", label:"до конца",       desc:"посмотри видео целиком", check: () => parseInt(localStorage.getItem("stat_views")||0) >= 2 },
+  { id:"mood_set",      emoji:"🎭", label:"настроение",     desc:"выбери мud",             check: () => document.querySelector(".mood.active") !== null },
+  { id:"secret_found",  emoji:"🥚", label:"пасхалка",       desc:"найди секрет",           check: () => secretPresses >= 6 },
+  { id:"title_7",       emoji:"7️⃣", label:"×7",             desc:"7 раз на заголовок",     check: () => tapCount >= 7 || localStorage.getItem("found_title7") === "1" },
+  { id:"snake_5",       emoji:"🐍", label:"змейка ×5",      desc:"набери 5 в змейке",      check: () => sBest >= 5 },
+  { id:"snake_20",      emoji:"🏆", label:"змейка ×20",     desc:"набери 20 в змейке",     check: () => sBest >= 20 },
+  { id:"react_300",     emoji:"⚡", label:"рефлексы",       desc:"реакция < 300мс",        check: () => parseInt(localStorage.getItem("react_best")||9999) < 300 },
+  { id:"energy_max",    emoji:"💥", label:"макс. энергия",  desc:"набери 100% энергии",    check: () => energyVal >= 100 },
+];
+
+let unlockedAchieves = JSON.parse(localStorage.getItem("achievements") || "[]");
+
+function renderAchieves() {
+  const grid = document.getElementById("achieve-grid");
+  grid.innerHTML = "";
+  allAchieves.forEach(a => {
+    const unlocked = unlockedAchieves.includes(a.id) || a.check();
+    if (unlocked && !unlockedAchieves.includes(a.id)) {
+      unlockedAchieves.push(a.id);
+      localStorage.setItem("achievements", JSON.stringify(unlockedAchieves));
+    }
+    const el = document.createElement("div");
+    el.className = "achieve-item" + (unlocked ? " unlocked" : " locked");
+    el.title = a.desc;
+    el.innerHTML = `<span class="a-emoji">${unlocked ? a.emoji : "🔒"}</span><span class="a-label">${unlocked ? a.label : "???"}</span>`;
+    if (unlocked) {
+      el.addEventListener("click", () => showToast(`${a.emoji} ${a.label}: ${a.desc}`));
+    }
+    grid.appendChild(el);
+  });
+  const cnt = unlockedAchieves.length;
+  const total = allAchieves.length;
+  const pct = Math.round(cnt/total*100);
+  document.querySelector(".achieve-widget .widget-label").textContent = `ачивки ${cnt}/${total}`;
+}
+
+function checkAchieves() {
+  const before = unlockedAchieves.length;
+  renderAchieves();
+  if (unlockedAchieves.length > before) {
+    const newA = allAchieves.find(a => unlockedAchieves.includes(a.id) && !allAchieves.slice(0, before).map(x=>x.id).includes(a.id));
+    const justUnlocked = allAchieves.filter(a => unlockedAchieves.includes(a.id)).slice(before);
+    if (justUnlocked.length) showToast(`🏅 ачивка: ${justUnlocked[0].label}`, 3000);
+  }
+}
+
+renderAchieves();
+setInterval(checkAchieves, 2000);
+
+// ===================== ENERGY WIDGET =====================
+let energyVal = parseInt(localStorage.getItem("energy") || "42");
+
+const energyBar   = document.getElementById("energy-bar");
+const energyLabel = document.getElementById("energy-label");
+
+const energyTexts = [
+  [0,  "💀 мертво"],
+  [15, "😵 почти труп"],
+  [30, "😴 сонный режим"],
+  [50, "😐 так себе"],
+  [70, "😏 неплохо"],
+  [85, "🔥 в ударе"],
+  [100,"💥 МАКСИМУМ"]
+];
+
+function getEnergyText(v) {
+  for (let i = energyTexts.length-1; i >= 0; i--) {
+    if (v >= energyTexts[i][0]) return energyTexts[i][1];
+  }
+  return energyTexts[0][1];
+}
+
+function updateEnergy(delta) {
+  energyVal = Math.max(0, Math.min(100, energyVal + delta));
+  localStorage.setItem("energy", energyVal);
+  energyBar.style.width = energyVal + "%";
+  energyBar.style.background = energyVal > 70
+    ? "linear-gradient(90deg,#6a5cff,#00d4ff)"
+    : energyVal > 40
+    ? "linear-gradient(90deg,#f7971e,#ffd200)"
+    : "linear-gradient(90deg,#f00,#ff4fd8)";
+  energyLabel.textContent = getEnergyText(energyVal);
+  checkAchieves();
+}
+updateEnergy(0);
+
+document.getElementById("e-coffee").addEventListener("click", () => { updateEnergy(+15); showToast("☕ +15 энергии"); bumpEl(energyBar); });
+document.getElementById("e-sleep").addEventListener("click",  () => { updateEnergy(-20); showToast("😴 -20 энергии... спишь?"); });
+document.getElementById("e-music").addEventListener("click",  () => { updateEnergy(+10); showToast("🎧 +10 энергии"); bumpEl(energyBar); });
+document.getElementById("e-chaos").addEventListener("click",  () => {
+  const d = Math.random() > 0.5 ? Math.floor(Math.random()*40)+10 : -(Math.floor(Math.random()*40)+10);
+  updateEnergy(d);
+  showToast(d > 0 ? `💀 хаос дал +${d}` : `💀 хаос забрал ${Math.abs(d)}`);
+  if (d > 30) confetti({ particleCount: 40, spread: 60, origin: { y: 0.6 } });
+});
+
+// drain energy slowly
+setInterval(() => { if (energyVal > 0) updateEnergy(-1); }, 30000);
+
+// ===================== REACTION TEST =====================
+const reactArea  = document.getElementById("react-area");
+const reactMsg   = document.getElementById("react-msg");
+const reactStart = document.getElementById("react-start");
+const reactBest  = document.getElementById("react-best");
+
+let reactState  = "idle"; // idle | waiting | ready | done
+let reactTimer  = null;
+let reactStart_ = 0;
+let rBest = parseInt(localStorage.getItem("react_best") || "9999");
+if (rBest < 9999) reactBest.textContent = rBest + " мс";
+
+function resetReact() {
+  reactState = "idle";
+  reactArea.style.background = "";
+  reactMsg.textContent = "жми старт";
+  reactStart.textContent = "старт";
+  clearTimeout(reactTimer);
+}
+
+reactStart.addEventListener("click", () => {
+  if (reactState === "idle") {
+    reactState = "waiting";
+    reactArea.style.background = "rgba(255,0,0,0.15)";
+    reactMsg.textContent = "жди...";
+    reactStart.textContent = "отмена";
+    const delay = 1500 + Math.random() * 3000;
+    reactTimer = setTimeout(() => {
+      reactState = "ready";
+      reactArea.style.background = "rgba(0,212,255,0.25)";
+      reactMsg.textContent = "ЖМИ!";
+      reactStart_ = Date.now();
+    }, delay);
+  } else if (reactState === "waiting") {
+    showToast("слишком рано 🐌");
+    resetReact();
+  } else if (reactState === "ready") {
+    const ms = Date.now() - reactStart_;
+    reactState = "done";
+    reactArea.style.background = "rgba(106,92,255,0.2)";
+    if (ms < rBest) {
+      rBest = ms;
+      localStorage.setItem("react_best", rBest);
+      reactBest.textContent = rBest + " мс";
+      showToast(`⚡ рекорд! ${ms} мс`, 3000);
+      if (ms < 300) {
+        confetti({ particleCount: 80, spread: 70, origin: { y: 0.5 } });
+      }
+      checkAchieves();
+    }
+    const grade = ms < 200 ? "🤖 робот" : ms < 300 ? "⚡ молния" : ms < 400 ? "👍 неплохо" : ms < 600 ? "😐 средне" : "🐢 черепаха";
+    reactMsg.textContent = `${ms} мс ${grade}`;
+    reactStart.textContent = "ещё раз";
+    setTimeout(resetReact, 2000);
+  } else if (reactState === "done") {
+    resetReact();
+  }
+});
+
+reactArea.addEventListener("click", () => {
+  if (reactState === "waiting") {
+    showToast("слишком рано 🐌");
+    resetReact();
+  } else if (reactState === "ready") {
+    reactStart.click();
+  }
+});
