@@ -5,6 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>@se7endm0</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── SNAKE ── */
+    .snake-widget { display:flex; flex-direction:column; align-items:center; gap:10px; }
+    .snake-arena  { position:relative; border-radius:12px; overflow:hidden; border:1.5px solid rgba(255,255,255,0.1); }
+    #snake-canvas { display:block; background:#0a0a1a; }
+    .snake-overlay{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:rgba(10,10,26,0.85); cursor:pointer; }
+    .snake-msg    { color:#00d4ff; font-size:15px; font-weight:700; text-align:center; padding:0 16px; }
+    .snake-score-best { color:rgba(255,255,255,0.5); font-size:12px; }
+    .snake-score-line { color:rgba(255,255,255,0.6); font-size:13px; }
+    .snake-controls { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .sctl-row { display:flex; gap:4px; }
+    .sctl { width:44px; height:44px; border:1.5px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.05); border-radius:10px; color:#fff; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; }
+    .sctl:active { background:rgba(0,212,255,0.2); }
+
+    /* ── ACHIEVEMENTS ── */
+    .achieve-widget { }
+    .achieve-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    .achieve-item { display:flex; flex-direction:column; align-items:center; gap:4px; padding:10px 6px; border-radius:12px; border:1.5px solid rgba(255,255,255,0.07); cursor:default; transition:transform .2s; }
+    .achieve-item.unlocked { background:rgba(106,92,255,0.15); border-color:rgba(106,92,255,0.4); cursor:pointer; }
+    .achieve-item.unlocked:hover { transform:scale(1.06); }
+    .achieve-item.locked { opacity:0.4; }
+    .a-emoji { font-size:22px; }
+    .a-label { font-size:9px; color:rgba(255,255,255,0.7); text-align:center; line-height:1.2; }
+
+    /* ── ENERGY ── */
+    .energy-widget { }
+    .energy-bar-wrap { width:100%; height:18px; background:rgba(255,255,255,0.08); border-radius:9px; overflow:hidden; }
+    .energy-bar { height:100%; width:42%; border-radius:9px; transition:width .5s ease, background .5s; background:linear-gradient(90deg,#f7971e,#ffd200); }
+    .energy-label { color:rgba(255,255,255,0.7); font-size:14px; text-align:center; margin:4px 0 10px; }
+    .energy-btns { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .e-btn { padding:10px 8px; border:1.5px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.05); border-radius:12px; color:#fff; font-size:13px; cursor:pointer; transition:background .15s, transform .1s; }
+    .e-btn:active { background:rgba(255,255,255,0.15); transform:scale(0.96); }
+
+    /* ── REACTION ── */
+    .react-widget { display:flex; flex-direction:column; gap:10px; }
+    .react-area { border-radius:12px; padding:24px 16px; text-align:center; border:1.5px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.03); cursor:pointer; transition:background .2s; min-height:80px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
+    .react-msg { font-size:20px; font-weight:700; color:#fff; }
+    .react-record { font-size:12px; color:rgba(255,255,255,0.45); }
+    .react-start-btn { padding:12px; border:1.5px solid rgba(0,212,255,0.4); background:rgba(0,212,255,0.08); border-radius:12px; color:#00d4ff; font-size:14px; font-weight:600; cursor:pointer; transition:background .15s; }
+    .react-start-btn:active { background:rgba(0,212,255,0.2); }
+
+    /* ── SOCIALS ── */
+    .socials-footer { display:flex; justify-content:center; gap:16px; padding:24px 16px 32px; flex-wrap:wrap; }
+    .social-link { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:14px; font-size:15px; font-weight:600; text-decoration:none; border:1.5px solid; transition:transform .2s, box-shadow .2s; }
+    .social-link:hover { transform:translateY(-3px); }
+    .social-link.tiktok { color:#fff; border-color:rgba(255,255,255,0.2); background:rgba(255,255,255,0.05); box-shadow:0 0 20px rgba(255,0,80,0.15); }
+    .social-link.tiktok:hover { box-shadow:0 0 30px rgba(255,0,80,0.3); }
+    .social-link.insta { color:#e1306c; border-color:rgba(225,48,108,0.35); background:rgba(225,48,108,0.08); box-shadow:0 0 20px rgba(225,48,108,0.1); }
+    .social-link.insta:hover { box-shadow:0 0 30px rgba(225,48,108,0.3); }
+  </style>
 </head>
 <body>
 
@@ -83,7 +133,73 @@
 
     </div>
 
+    <!-- SNAKE GAME -->
+    <div class="widget snake-widget">
+      <div class="widget-label">змейка</div>
+      <div class="snake-arena">
+        <canvas id="snake-canvas" width="240" height="240"></canvas>
+        <div class="snake-overlay" id="snake-overlay">
+          <div class="snake-msg" id="snake-msg">нажми чтоб играть</div>
+          <div class="snake-score-best">рекорд: <span id="snake-best">0</span></div>
+        </div>
+      </div>
+      <div class="snake-controls">
+        <button class="sctl" id="s-up">▲</button>
+        <div class="sctl-row">
+          <button class="sctl" id="s-left">◀</button>
+          <button class="sctl" id="s-down">▼</button>
+          <button class="sctl" id="s-right">▶</button>
+        </div>
+      </div>
+      <div class="snake-score-line">счёт: <span id="snake-score">0</span></div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div class="widget achieve-widget">
+      <div class="widget-label">ачивки</div>
+      <div class="achieve-grid" id="achieve-grid">
+        <!-- filled by JS -->
+      </div>
+    </div>
+
+    <!-- ENERGY LEVEL -->
+    <div class="widget energy-widget">
+      <div class="widget-label">уровень энергии</div>
+      <div class="energy-bar-wrap">
+        <div class="energy-bar" id="energy-bar"></div>
+      </div>
+      <div class="energy-label" id="energy-label">заряжаем...</div>
+      <div class="energy-btns">
+        <button class="e-btn" id="e-coffee">☕ кофе</button>
+        <button class="e-btn" id="e-sleep">😴 сон</button>
+        <button class="e-btn" id="e-music">🎧 музыка</button>
+        <button class="e-btn" id="e-chaos">💀 хаос</button>
+      </div>
+    </div>
+
+    <!-- REACTION TEST -->
+    <div class="widget react-widget">
+      <div class="widget-label">тест реакции</div>
+      <div class="react-area" id="react-area">
+        <div class="react-msg" id="react-msg">жми старт</div>
+        <div class="react-record">рекорд: <span id="react-best">—</span></div>
+      </div>
+      <button class="react-start-btn" id="react-start">старт</button>
+    </div>
+
     <div class="footer-hint" id="footer-hint"></div>
+
+    <!-- SOCIALS -->
+    <div class="socials-footer">
+      <a class="social-link tiktok" href="https://tiktok.com/@pp01nd3x" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
+        @pp01nd3x
+      </a>
+      <a class="social-link insta" href="https://instagram.com/se7endm0" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @se7endm0
+      </a>
+    </div>
 
   </div>
 
