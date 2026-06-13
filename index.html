@@ -14,20 +14,23 @@
 
 <div class="container">
 
-    <h1 id="title">@se7endm0</h1>
+    <h1 id="title">Добро пожаловать</h1>
     <div id="phrase" class="info"></div>
 
     <div class="card">
 
-        <video id="video"
-               autoplay
-               muted
-               playsinline
-               controls
-               controlsList="nodownload noplaybackrate">
+        <!-- уменьшил визуальный размер -->
+        <div class="video-wrap">
+            <video id="video"
+                   autoplay
+                   muted
+                   playsinline
+                   controls
+                   controlsList="nodownload noplaybackrate">
 
-            <source src="sponge.mp4" type="video/mp4">
-        </video>
+                <source src="sponge.mp4" type="video/mp4">
+            </video>
+        </div>
 
         <div class="progress">
             <div class="bar" id="bar"></div>
@@ -35,7 +38,12 @@
 
         <div class="info" id="time">00:00</div>
 
+        <!-- новая штука -->
+        <div class="info" id="status">Загрузка системы...</div>
+
     </div>
+
+    <a href="https://example.com" class="btn" id="btn">Перейти дальше</a>
 
 </div>
 
