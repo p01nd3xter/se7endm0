@@ -16,10 +16,11 @@ const phrases = [
     "Ничего подозрительного не происходит"
 ];
 
-phrase.textContent = phrases[Math.floor(Math.random()*phrases.length)];
+phrase.textContent =
+    phrases[Math.floor(Math.random() * phrases.length)];
 
 /* =======================
-   СТАТУСЫ (новая приколюха)
+   СТАТУСЫ
 ======================= */
 const statuses = [
     "Инициализация интерфейса...",
@@ -30,7 +31,7 @@ const statuses = [
 
 let i = 0;
 const interval = setInterval(() => {
-    status.textContent = statuses[i];
+    if (status) status.textContent = statuses[i];
     i++;
     if (i >= statuses.length) clearInterval(interval);
 }, 900);
@@ -66,7 +67,7 @@ video.addEventListener("timeupdate", () => {
         `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
 
     if (percent > 90) {
-        btn.classList.add("active");
+        btn?.classList.add("active");
     }
 });
 
@@ -87,22 +88,26 @@ document.addEventListener("visibilitychange", () => {
 });
 
 /* =======================
-   HOVER EFFECT (прикалюха)
+   HOVER EFFECT (safe)
 ======================= */
-document.querySelector(".card").addEventListener("mouseenter", () => {
-    document.body.style.filter = "hue-rotate(10deg)";
-});
+const card = document.querySelector(".card");
 
-document.querySelector(".card").addEventListener("mouseleave", () => {
-    document.body.style.filter = "none";
-});
+if (card) {
+    card.addEventListener("mouseenter", () => {
+        document.body.style.filter = "hue-rotate(10deg)";
+    });
+
+    card.addEventListener("mouseleave", () => {
+        document.body.style.filter = "none";
+    });
+}
 
 /* =======================
    KEY EASTER EGG
 ======================= */
 document.addEventListener("keydown", (e) => {
     if (e.key.toLowerCase() === "k") {
-        status.textContent = "🥚 Пасхалка активирована";
+        if (status) status.textContent = "🥚 Пасхалка активирована";
         alert("K → секрет найден 😎");
     }
 });
@@ -111,7 +116,7 @@ document.addEventListener("keydown", (e) => {
    TITLE DOUBLE CLICK
 ======================= */
 title.addEventListener("dblclick", () => {
-    status.textContent = "Секретный режим включён";
+    if (status) status.textContent = "Секретный режим включён";
     document.body.style.filter = "contrast(1.2)";
 });
 
@@ -133,7 +138,7 @@ for (let i = 0; i < 25; i++) {
 video.addEventListener("ended", () => {
 
     title.textContent = "Готово ✅";
-    status.textContent = "Просмотр завершён";
+    if (status) status.textContent = "Просмотр завершён";
 
     btn.classList.add("active");
 
