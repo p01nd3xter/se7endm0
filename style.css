@@ -10,7 +10,6 @@ body {
     color: white;
     background: #0b0f1a;
 
-    /* 🔥 фикс: нормальное центрирование */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +18,9 @@ body {
     overflow-y: auto;
 }
 
-/* фон */
+/* =======================
+   ФОН
+======================= */
 .bg {
     position: fixed;
     inset: 0;
@@ -37,7 +38,9 @@ body {
     100% { transform: scale(1.2); }
 }
 
-/* частицы */
+/* =======================
+   ЧАСТИЦЫ
+======================= */
 .particle {
     position: fixed;
     width: 4px;
@@ -54,19 +57,22 @@ body {
     to { transform: translateY(-10vh); }
 }
 
-/* контейнер — теперь без top/transform */
+/* =======================
+   КОНТЕЙНЕР
+======================= */
 .container {
     width: min(900px, 92%);
     text-align: center;
     padding: 20px;
 }
 
-/* заголовок */
 h1 {
     margin-bottom: 10px;
 }
 
-/* карточка */
+/* =======================
+   КАРТОЧКА
+======================= */
 .card {
     margin-top: 20px;
     padding: 15px;
@@ -76,17 +82,29 @@ h1 {
     backdrop-filter: blur(12px);
 }
 
-/* видео + свечение */
+/* =======================
+   VIDEO WRAPPER (ФИКС РАЗМЕРА)
+======================= */
+.video-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* =======================
+   VIDEO + СВЕЧЕНИЕ
+======================= */
 video {
     width: 100%;
     border-radius: 12px;
 
     box-shadow:
-        0 0 25px rgba(106,92,255,0.4),
-        0 0 60px rgba(0,212,255,0.2);
+        0 0 25px rgba(106,92,255,0.35),
+        0 0 55px rgba(0,212,255,0.18);
 }
 
-/* прогресс */
+/* =======================
+   ПРОГРЕСС
+======================= */
 .progress {
     height: 6px;
     background: rgba(255,255,255,0.1);
@@ -101,14 +119,18 @@ video {
     background: linear-gradient(90deg, #6a5cff, #00d4ff);
 }
 
-/* текст */
+/* =======================
+   ТЕКСТ
+======================= */
 .info {
     margin-top: 10px;
     font-size: 14px;
     color: #aaa;
 }
 
-/* кнопка */
+/* =======================
+   КНОПКА
+======================= */
 .btn {
     display: inline-block;
     margin-top: 20px;
