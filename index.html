@@ -1,74 +1,46 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добро пожаловать</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Welcome</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="background"></div>
+<div class="bg"></div>
 
 <div class="container">
 
-    <h1>Добро пожаловать</h1>
+    <h1 id="title">Добро пожаловать</h1>
+    <div id="phrase" class="info"></div>
 
-    <p class="subtitle">
-        Посмотрите видео до конца
-    </p>
+    <div class="card">
 
-    <div class="video-wrapper">
+        <video id="video"
+               autoplay
+               muted
+               playsinline
+               controls
+               controlsList="nodownload noplaybackrate">
 
-        <video
-            id="video"
-            controls
-            controlsList="nodownload"
-            disablePictureInPicture
-        >
-            <source src="sponge.mp4" type="video/mp4">
+            <source src="video.mp4" type="video/mp4">
         </video>
 
-        <div class="progress-box">
-            <div class="progress-bar" id="progress"></div>
+        <div class="progress">
+            <div class="bar" id="bar"></div>
         </div>
+
+        <div class="info" id="time">00:00</div>
 
     </div>
 
-    <a class="site-btn" href="https://твой-сайт.com" target="_blank">
-        Перейти на основной сайт
-    </a>
-
 </div>
 
-<script>
-const video = document.getElementById("video");
-const progress = document.getElementById("progress");
-
-let maxWatched = 0;
-
-video.addEventListener("timeupdate", () => {
-
-    if (video.currentTime > maxWatched) {
-        maxWatched = video.currentTime;
-    }
-
-    const percent = (video.currentTime / video.duration) * 100;
-    progress.style.width = percent + "%";
-});
-
-video.addEventListener("seeking", () => {
-
-    if (video.currentTime > maxWatched + 1) {
-        video.currentTime = maxWatched;
-    }
-});
-
-video.addEventListener("contextmenu", e => {
-    e.preventDefault();
-});
-</script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
