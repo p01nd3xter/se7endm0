@@ -9,7 +9,14 @@ body {
     font-family: Arial, sans-serif;
     color: white;
     background: #0b0f1a;
-    overflow: hidden;
+
+    /* 🔥 фикс: нормальное центрирование */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* фон */
@@ -32,7 +39,7 @@ body {
 
 /* частицы */
 .particle {
-    position: absolute;
+    position: fixed;
     width: 4px;
     height: 4px;
     background: white;
@@ -47,17 +54,14 @@ body {
     to { transform: translateY(-10vh); }
 }
 
-/* контейнер */
+/* контейнер — теперь без top/transform */
 .container {
-    position: relative;
-    max-width: 900px;
-    margin: auto;
-    top: 50%;
-    transform: translateY(-50%);
+    width: min(900px, 92%);
     text-align: center;
     padding: 20px;
 }
 
+/* заголовок */
 h1 {
     margin-bottom: 10px;
 }
@@ -72,10 +76,11 @@ h1 {
     backdrop-filter: blur(12px);
 }
 
-/* 🔥 СВЕЧЕНИЕ ВОКРУГ ВИДЕО */
+/* видео + свечение */
 video {
     width: 100%;
     border-radius: 12px;
+
     box-shadow:
         0 0 25px rgba(106,92,255,0.4),
         0 0 60px rgba(0,212,255,0.2);
