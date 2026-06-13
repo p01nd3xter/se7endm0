@@ -34,6 +34,55 @@
       </div>
     </div>
 
+    <div class="widgets">
+
+      <div class="widget clicker-widget">
+        <div class="widget-label">кликер</div>
+        <button class="click-btn" id="click-btn">
+          <span class="click-icon">👆</span>
+          <span class="click-count" id="click-count">0</span>
+        </button>
+        <div class="click-sub" id="click-sub">жми пока не надоест</div>
+      </div>
+
+      <div class="widget mood-widget">
+        <div class="widget-label">настроение</div>
+        <div class="moods" id="moods">
+          <button class="mood" data-mood="🔥" data-label="огонь">🔥</button>
+          <button class="mood" data-mood="😴" data-label="скучно">😴</button>
+          <button class="mood" data-mood="👾" data-label="олдскул">👾</button>
+          <button class="mood" data-mood="💀" data-label="мертво">💀</button>
+          <button class="mood" data-mood="✨" data-label="кайф">✨</button>
+        </div>
+        <div class="mood-result" id="mood-result">выбери настроение</div>
+      </div>
+
+      <div class="widget watch-widget">
+        <div class="widget-label">статистика</div>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-val" id="stat-views">1</span>
+            <span class="stat-name">просмотров</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val" id="stat-pauses">0</span>
+            <span class="stat-name">пауз</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val" id="stat-seeks">0</span>
+            <span class="stat-name">попыток мотать</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget secret-widget">
+        <div class="widget-label">секретная кнопка</div>
+        <button class="secret-btn" id="secret-btn">???</button>
+        <div class="secret-hint" id="secret-hint">никто не знает что здесь</div>
+      </div>
+
+    </div>
+
     <div class="footer-hint" id="footer-hint"></div>
 
   </div>
