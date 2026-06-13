@@ -5,56 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>@se7endm0</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* ── SNAKE ── */
-    .snake-widget { display:flex; flex-direction:column; align-items:center; gap:10px; }
-    .snake-arena  { position:relative; border-radius:12px; overflow:hidden; border:1.5px solid rgba(255,255,255,0.1); }
-    #snake-canvas { display:block; background:#0a0a1a; }
-    .snake-overlay{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:rgba(10,10,26,0.85); cursor:pointer; }
-    .snake-msg    { color:#00d4ff; font-size:15px; font-weight:700; text-align:center; padding:0 16px; }
-    .snake-score-best { color:rgba(255,255,255,0.5); font-size:12px; }
-    .snake-score-line { color:rgba(255,255,255,0.6); font-size:13px; }
-    .snake-controls { display:flex; flex-direction:column; align-items:center; gap:4px; }
-    .sctl-row { display:flex; gap:4px; }
-    .sctl { width:44px; height:44px; border:1.5px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.05); border-radius:10px; color:#fff; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; }
-    .sctl:active { background:rgba(0,212,255,0.2); }
-
-    /* ── ACHIEVEMENTS ── */
-    .achieve-widget { }
-    .achieve-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
-    .achieve-item { display:flex; flex-direction:column; align-items:center; gap:4px; padding:10px 6px; border-radius:12px; border:1.5px solid rgba(255,255,255,0.07); cursor:default; transition:transform .2s; }
-    .achieve-item.unlocked { background:rgba(106,92,255,0.15); border-color:rgba(106,92,255,0.4); cursor:pointer; }
-    .achieve-item.unlocked:hover { transform:scale(1.06); }
-    .achieve-item.locked { opacity:0.4; }
-    .a-emoji { font-size:22px; }
-    .a-label { font-size:9px; color:rgba(255,255,255,0.7); text-align:center; line-height:1.2; }
-
-    /* ── ENERGY ── */
-    .energy-widget { }
-    .energy-bar-wrap { width:100%; height:18px; background:rgba(255,255,255,0.08); border-radius:9px; overflow:hidden; }
-    .energy-bar { height:100%; width:42%; border-radius:9px; transition:width .5s ease, background .5s; background:linear-gradient(90deg,#f7971e,#ffd200); }
-    .energy-label { color:rgba(255,255,255,0.7); font-size:14px; text-align:center; margin:4px 0 10px; }
-    .energy-btns { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-    .e-btn { padding:10px 8px; border:1.5px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.05); border-radius:12px; color:#fff; font-size:13px; cursor:pointer; transition:background .15s, transform .1s; }
-    .e-btn:active { background:rgba(255,255,255,0.15); transform:scale(0.96); }
-
-    /* ── REACTION ── */
-    .react-widget { display:flex; flex-direction:column; gap:10px; }
-    .react-area { border-radius:12px; padding:24px 16px; text-align:center; border:1.5px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.03); cursor:pointer; transition:background .2s; min-height:80px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; }
-    .react-msg { font-size:20px; font-weight:700; color:#fff; }
-    .react-record { font-size:12px; color:rgba(255,255,255,0.45); }
-    .react-start-btn { padding:12px; border:1.5px solid rgba(0,212,255,0.4); background:rgba(0,212,255,0.08); border-radius:12px; color:#00d4ff; font-size:14px; font-weight:600; cursor:pointer; transition:background .15s; }
-    .react-start-btn:active { background:rgba(0,212,255,0.2); }
-
-    /* ── SOCIALS ── */
-    .socials-footer { display:flex; justify-content:center; gap:16px; padding:24px 16px 32px; flex-wrap:wrap; }
-    .social-link { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:14px; font-size:15px; font-weight:600; text-decoration:none; border:1.5px solid; transition:transform .2s, box-shadow .2s; }
-    .social-link:hover { transform:translateY(-3px); }
-    .social-link.tiktok { color:#fff; border-color:rgba(255,255,255,0.2); background:rgba(255,255,255,0.05); box-shadow:0 0 20px rgba(255,0,80,0.15); }
-    .social-link.tiktok:hover { box-shadow:0 0 30px rgba(255,0,80,0.3); }
-    .social-link.insta { color:#e1306c; border-color:rgba(225,48,108,0.35); background:rgba(225,48,108,0.08); box-shadow:0 0 20px rgba(225,48,108,0.1); }
-    .social-link.insta:hover { box-shadow:0 0 30px rgba(225,48,108,0.3); }
-  </style>
 </head>
 <body>
 
